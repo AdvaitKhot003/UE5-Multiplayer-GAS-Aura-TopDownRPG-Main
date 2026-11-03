@@ -6,6 +6,8 @@
 #include "GameFramework/PlayerController.h"
 #include "AuraPlayerController.generated.h"
 
+class UAuraInputDataAsset;
+
 UCLASS()
 class AURARPG_API AAuraPlayerController : public APlayerController
 {
@@ -13,4 +15,12 @@ class AURARPG_API AAuraPlayerController : public APlayerController
 	
 public:
 	AAuraPlayerController();
+	
+protected:
+	virtual void BeginPlay() override;
+	virtual void SetupInputComponent() override;
+	
+private:
+	UPROPERTY(EditDefaultsOnly, Category = "Aura|DataAsset")
+	TObjectPtr<UAuraInputDataAsset> AuraInputDataAsset;
 };

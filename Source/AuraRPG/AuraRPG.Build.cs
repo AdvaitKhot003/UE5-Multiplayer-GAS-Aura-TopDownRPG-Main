@@ -14,7 +14,9 @@ public class AuraRPG : ModuleRules
 			"CoreUObject",
 			"Engine",
 			"InputCore",
-			"UMG"
+			"UMG",
+			"EnhancedInput",
+			"GameplayTags"
 		]);
 		
 		PrivateDependencyModuleNames.AddRange([]);
