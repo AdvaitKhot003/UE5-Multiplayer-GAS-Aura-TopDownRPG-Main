@@ -6,6 +6,9 @@
 #include "AuraCharacterBase.h"
 #include "AuraPlayerCharacter.generated.h"
 
+class USpringArmComponent;
+class UCameraComponent;
+
 UCLASS()
 class AURARPG_API AAuraPlayerCharacter : public AAuraCharacterBase
 {
@@ -13,4 +16,11 @@ class AURARPG_API AAuraPlayerCharacter : public AAuraCharacterBase
 	
 public:
 	AAuraPlayerCharacter();
+	
+private:
+	UPROPERTY(VisibleAnywhere, Category = "Aura|Camera")
+	TObjectPtr<USpringArmComponent> CameraBoom;
+	
+	UPROPERTY(VisibleAnywhere, Category = "Aura|Camera")
+	TObjectPtr<UCameraComponent> FollowCamera;
 };

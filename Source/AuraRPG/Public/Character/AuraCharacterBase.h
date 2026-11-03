@@ -6,6 +6,8 @@
 #include "GameFramework/Character.h"
 #include "AuraCharacterBase.generated.h"
 
+class USkeletalMeshComponent;
+
 UCLASS(Abstract)
 class AURARPG_API AAuraCharacterBase : public ACharacter
 {
@@ -13,4 +15,8 @@ class AURARPG_API AAuraCharacterBase : public ACharacter
 	
 public:
 	AAuraCharacterBase();
+	
+private:
+	UPROPERTY(VisibleAnywhere, Category = "Aura|Combat")
+	TObjectPtr<USkeletalMeshComponent> WeaponMesh;
 };
