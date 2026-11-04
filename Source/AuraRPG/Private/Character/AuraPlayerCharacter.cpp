@@ -4,6 +4,8 @@
 #include "GameFramework/SpringArmComponent.h"
 #include "Camera/CameraComponent.h"
 #include "GameFramework/CharacterMovementComponent.h"
+#include "Player/AuraPlayerState.h"
+#include "AbilitySystemComponent.h"
 
 AAuraPlayerCharacter::AAuraPlayerCharacter()
 {
@@ -41,4 +43,43 @@ AAuraPlayerCharacter::AAuraPlayerCharacter()
 	GetCharacterMovement()->MaxWalkSpeed = 500.f;
 	GetCharacterMovement()->BrakingDecelerationWalking = 2000.f;
 	GetCharacterMovement()->GroundFriction = 10.f;
+}
+
+void AAuraPlayerCharacter::PossessedBy(AController* NewController)
+{
+	Super::PossessedBy(NewController);
+	
+	InitAbilityCharacterInfo();
+}
+
+void AAuraPlayerCharacter::OnRep_PlayerState()
+{
+	Super::OnRep_PlayerState();
+	
+	InitAbilityCharacterInfo();
+}
+
+void AAuraPlayerCharacter::InitAbilityCharacterInfo()
+{
+	AAuraPlayerState* AuraPlayerState = GetPlayerState<AAuraPlayerState>();
+	if (!AuraPlayerState) return;
+	
+	AbilitySystemComponent = GetAbilitySystemComponent();
+	AttributeSet = GetAttributeSet();
+	
+	if (!AbilitySystemComponent || !AttributeSet) return;
+	
+	AbilitySystemComponent->InitAbilityActorInfo(AuraPlayerState, this);
+}
+
+UAbilitySystemComponent* AAuraPlayerCharacter::GetAbilitySystemComponent() const
+{
+	const AAuraPlayerState* AuraPlayerState = GetPlayerState<AAuraPlayerState>();
+	return AuraPlayerState? AuraPlayerState->GetAbilitySystemComponent() : nullptr;
+}
+
+UAttributeSet* AAuraPlayerCharacter::GetAttributeSet() const
+{
+	const AAuraPlayerState* AuraPlayerState = GetPlayerState<AAuraPlayerState>();
+	return AuraPlayerState? AuraPlayerState->GetAttributeSet() : nullptr;
 }

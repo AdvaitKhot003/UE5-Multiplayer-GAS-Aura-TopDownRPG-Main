@@ -13,3 +13,13 @@ AAuraCharacterBase::AAuraCharacterBase()
 	WeaponMesh->SetupAttachment(GetMesh(), FName("WeaponHandSocket"));
 	WeaponMesh->SetCollisionEnabled(ECollisionEnabled::NoCollision);
 }
+
+void AAuraCharacterBase::InitAbilityCharacterInfo()
+{
+	
+}
+
+UAbilitySystemComponent* AAuraCharacterBase::GetAbilitySystemComponent() const
+{
+	return nullptr;
+}
