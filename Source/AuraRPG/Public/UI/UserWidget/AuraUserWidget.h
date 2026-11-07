@@ -15,10 +15,12 @@ public:
 	UFUNCTION(BlueprintCallable)
 	void SetWidgetController(UObject* InWidgetController);
 	
+	UObject* GetWidgetController() const { return WidgetController; }
+	
+	UFUNCTION(BlueprintNativeEvent)
+	void WidgetControllerSet();
+	
 protected:
 	UPROPERTY(BlueprintReadOnly, Category = "Aura|UserWidget")
 	TObjectPtr<UObject> WidgetController;
-	
-	UFUNCTION(BlueprintImplementableEvent)
-	void WidgetControllerSet();
 };
