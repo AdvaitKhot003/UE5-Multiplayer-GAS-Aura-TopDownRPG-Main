@@ -18,7 +18,8 @@ public class AuraRPG : ModuleRules
 			"EnhancedInput",
 			"GameplayTags",
 			"GameplayAbilities",
-			"GameplayTasks"
+			"GameplayTasks",
+			"SlateCore"
 		]);
 		
 		PrivateDependencyModuleNames.AddRange([]);
