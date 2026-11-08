@@ -3,6 +3,7 @@
 #include "UI/UserWidget/ProgressBar/GlobeProgressBarWidget.h"
 #include "Components/Image.h"
 #include "Components/ProgressBar.h"
+#include "UI/WidgetController/OverlayWidgetController.h"
 
 void UGlobeProgressBarWidget::NativePreConstruct()
 {
@@ -20,7 +21,13 @@ void UGlobeProgressBarWidget::NativePreConstruct()
 	ProgressBar_Globe->SetWidgetStyle(GlobeBarStyle);
 }
 
-void UGlobeProgressBarWidget::SetProgressBarGlobePercent(float Percent)
+void UGlobeProgressBarWidget::WidgetControllerSet_Implementation()
+{
+	if (!WidgetController) return;
+	OverlayWidgetController = Cast<UOverlayWidgetController>(WidgetController);
+}
+
+void UGlobeProgressBarWidget::SetProgressBarGlobePercent(float Percent) const
 {
 	if (!ProgressBar_Globe) return;
 	ProgressBar_Globe->SetPercent(Percent);

@@ -8,6 +8,7 @@
 
 class UImage;
 class UProgressBar;
+class UOverlayWidgetController;
 
 UCLASS()
 class AURARPG_API UGlobeProgressBarWidget : public UAuraSizeBoxWidget
@@ -15,6 +16,8 @@ class AURARPG_API UGlobeProgressBarWidget : public UAuraSizeBoxWidget
 	GENERATED_BODY()
 	
 public:
+	virtual void WidgetControllerSet_Implementation() override;
+	
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Aura|GlobeProgressBar")
 	FSlateBrush GlobeRingBrush;
 	
@@ -25,7 +28,7 @@ public:
 	FSlateBrush GlobeBarFillBrush;
 	
 	UFUNCTION(BlueprintCallable)
-	void SetProgressBarGlobePercent(float Percent);
+	void SetProgressBarGlobePercent(float Percent) const;
 	
 protected:
 	virtual void NativePreConstruct() override;
@@ -38,4 +41,7 @@ protected:
 	
 	UPROPERTY(meta=(BindWidget))
 	TObjectPtr<UProgressBar> ProgressBar_Globe;
+	
+	UPROPERTY(BlueprintReadOnly, Category = "Aura|UserWidget")
+	TObjectPtr<UOverlayWidgetController> OverlayWidgetController;
 };
