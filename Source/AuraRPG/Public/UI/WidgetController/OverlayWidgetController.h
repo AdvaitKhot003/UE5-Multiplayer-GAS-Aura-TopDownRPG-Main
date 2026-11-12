@@ -7,7 +7,7 @@
 #include "AbilitySystem/AuraAttributeSet.h"
 #include "OverlayWidgetController.generated.h"
 
-class UAuraUserWidget;
+class UMessageWidget;
 
 USTRUCT(BlueprintType)
 struct FUIMessageWidgetRow : public FTableRowBase
@@ -24,7 +24,7 @@ struct FUIMessageWidgetRow : public FTableRowBase
 	TObjectPtr<UTexture2D> MessageIcon = nullptr;
 	
 	UPROPERTY(EditDefaultsOnly)
-	TSubclassOf<UAuraUserWidget> MessageWidget = nullptr;
+	TSubclassOf<UMessageWidget> MessageWidget = nullptr;
 };
 
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnAttributeChangeSignature, float, NewValue);

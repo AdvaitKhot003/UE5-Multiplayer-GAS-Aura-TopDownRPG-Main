@@ -8,6 +8,7 @@
 
 class UGlobeProgressBarWidget;
 class UOverlayWidgetController;
+struct FUIMessageWidgetRow;
 
 UCLASS()
 class AURARPG_API UOverlayWidget : public UAuraUserWidget
@@ -28,4 +29,7 @@ protected:
 	
 	UPROPERTY(BlueprintReadOnly, Category = "Aura|UserWidget")
 	TObjectPtr<UOverlayWidgetController> OverlayWidgetController;
+	
+private:
+	void UIMessageWidgetRowReceived(FUIMessageWidgetRow Row) const;
 };
