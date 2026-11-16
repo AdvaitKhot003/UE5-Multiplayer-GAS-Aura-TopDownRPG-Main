@@ -71,6 +71,7 @@ void AAuraPlayerCharacter::InitAbilityCharacterInfo()
 	if (!AbilitySystemComponent || !AttributeSet) return;
 	
 	AbilitySystemComponent->InitAbilityActorInfo(AuraPlayerState, this);
+	InitDefaultAttributes(AbilitySystemComponent);
 	Cast<UAuraAbilitySystemComponent>(AbilitySystemComponent)->InitAbilityActorInfoSet();
 	
 	APlayerController* PlayerController = Cast<APlayerController>(GetController());
@@ -80,6 +81,20 @@ void AAuraPlayerCharacter::InitAbilityCharacterInfo()
 	if (!AuraHUD) return;
 	
 	AuraHUD->InitOverlay(PlayerController, AuraPlayerState, AbilitySystemComponent, AttributeSet);
+}
+
+void AAuraPlayerCharacter::InitDefaultAttributes(UAbilitySystemComponent* SourceASC)
+{
+	if (!SourceASC) return;
+	
+	check(DefaultPrimaryAttributes);
+	ApplyEffectSpecToSelf(SourceASC, DefaultPrimaryAttributes);
+	
+	check(DefaultSecondaryAttributes);
+	ApplyEffectSpecToSelf(SourceASC, DefaultSecondaryAttributes);
+	
+	check(DefaultVitalAttributes);
+	ApplyEffectSpecToSelf(SourceASC, DefaultVitalAttributes);
 }
 
 UAbilitySystemComponent* AAuraPlayerCharacter::GetAbilitySystemComponent() const

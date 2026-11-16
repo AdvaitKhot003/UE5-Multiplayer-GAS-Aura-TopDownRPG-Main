@@ -10,6 +10,7 @@
 class USkeletalMeshComponent;
 class UAbilitySystemComponent;
 class UAttributeSet;
+class UGameplayEffect;
 
 UCLASS(Abstract)
 class AURARPG_API AAuraCharacterBase : public ACharacter, public IAbilitySystemInterface
@@ -35,4 +36,18 @@ protected:
 	TObjectPtr<UAttributeSet> AttributeSet;
 	
 	virtual void InitAbilityCharacterInfo();
+	
+	UPROPERTY(EditDefaultsOnly, Category = "Aura|Attributes")
+	TSubclassOf<UGameplayEffect> DefaultPrimaryAttributes;
+	
+	UPROPERTY(EditDefaultsOnly, Category = "Aura|Attributes")
+	TSubclassOf<UGameplayEffect> DefaultSecondaryAttributes;
+	
+	UPROPERTY(EditDefaultsOnly, Category = "Aura|Attributes")
+	TSubclassOf<UGameplayEffect> DefaultVitalAttributes;
+	
+	virtual void InitDefaultAttributes(UAbilitySystemComponent* SourceASC);
+	
+	void ApplyEffectSpecToSelf(UAbilitySystemComponent* SourceASC,
+		const TSubclassOf<UGameplayEffect>& GameplayEffectClass, float Level = 1.f);
 };

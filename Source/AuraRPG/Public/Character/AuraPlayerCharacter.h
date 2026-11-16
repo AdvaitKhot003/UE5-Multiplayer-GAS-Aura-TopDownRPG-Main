@@ -27,6 +27,7 @@ public:
 	
 protected:
 	virtual void InitAbilityCharacterInfo() override;
+	virtual void InitDefaultAttributes(UAbilitySystemComponent* SourceASC) override;
 	
 private:
 	UPROPERTY(VisibleAnywhere, Category = "Aura|Camera")
