@@ -108,3 +108,9 @@ UAttributeSet* AAuraPlayerCharacter::GetAttributeSet() const
 	const AAuraPlayerState* AuraPlayerState = GetPlayerState<AAuraPlayerState>();
 	return AuraPlayerState? AuraPlayerState->GetAttributeSet() : nullptr;
 }
+
+int32 AAuraPlayerCharacter::GetCharacterLevel() const
+{
+	const AAuraPlayerState* AuraPlayerState = GetPlayerState<AAuraPlayerState>();
+	return AuraPlayerState? AuraPlayerState->GetPlayerLevel() : 0;
+}

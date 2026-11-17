@@ -18,10 +18,14 @@ class AURARPG_API AAuraPlayerState : public APlayerState, public IAbilitySystemI
 public:
 	AAuraPlayerState();
 	
+	virtual void GetLifetimeReplicatedProps(TArray<class FLifetimeProperty>& OutLifetimeProps) const override;
+	
 #pragma region Ability System Interface
 	virtual UAbilitySystemComponent* GetAbilitySystemComponent() const override;
 	UAttributeSet* GetAttributeSet() const { return AttributeSet; }
 #pragma endregion
+	
+	int32 GetPlayerLevel() const { return PlayerLevel; }
 	
 private:
 	UPROPERTY(VisibleAnywhere, Category = "Aura|AbilitySystem")
@@ -29,4 +33,10 @@ private:
 	
 	UPROPERTY(VisibleAnywhere, Category = "Aura|AbilitySystem")
 	TObjectPtr<UAttributeSet> AttributeSet;
+	
+	UPROPERTY(VisibleAnywhere, ReplicatedUsing = OnRep_PlayerLevel, Category = "Aura|AbilitySystem")
+	int32 PlayerLevel = 1;
+	
+	UFUNCTION()
+	void OnRep_PlayerLevel(int32 OldPlayerLevel);
 };

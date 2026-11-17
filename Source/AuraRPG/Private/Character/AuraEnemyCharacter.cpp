@@ -41,6 +41,11 @@ UAttributeSet* AAuraEnemyCharacter::GetAttributeSet() const
 	return AttributeSet;
 }
 
+int32 AAuraEnemyCharacter::GetCharacterLevel() const
+{
+	return EnemyLevel;
+}
+
 void AAuraEnemyCharacter::HighlightEnemy()
 {
 	GetMesh()->SetRenderCustomDepth(true);

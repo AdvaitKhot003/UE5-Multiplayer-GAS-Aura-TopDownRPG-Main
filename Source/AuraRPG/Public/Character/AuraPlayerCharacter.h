@@ -25,6 +25,10 @@ public:
 	virtual UAttributeSet* GetAttributeSet() const override;
 #pragma endregion
 	
+#pragma region Combat Interface
+	virtual int32 GetCharacterLevel() const override;
+#pragma endregion
+	
 protected:
 	virtual void InitAbilityCharacterInfo() override;
 	virtual void InitDefaultAttributes(UAbilitySystemComponent* SourceASC) override;

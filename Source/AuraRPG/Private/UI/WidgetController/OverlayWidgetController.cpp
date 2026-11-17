@@ -32,7 +32,7 @@ void UOverlayWidgetController::BindCallbackToDependencies()
 		AuraAttributeSet->GetManaAttribute()).AddUObject(this, &UOverlayWidgetController::ManaChanged);
 	
 	AbilitySystemComponent->GetGameplayAttributeValueChangeDelegate(
-		AuraAttributeSet->GetMaxHealthAttribute()).AddUObject(this, &UOverlayWidgetController::MaxManaChanged);
+		AuraAttributeSet->GetMaxManaAttribute()).AddUObject(this, &UOverlayWidgetController::MaxManaChanged);
 	
 	AuraAbilitySystemComponent->GameplayEffectAssetTagsDelegate.AddUObject(
 		this, &UOverlayWidgetController::GameplayEffectAssetTagsReceived);
