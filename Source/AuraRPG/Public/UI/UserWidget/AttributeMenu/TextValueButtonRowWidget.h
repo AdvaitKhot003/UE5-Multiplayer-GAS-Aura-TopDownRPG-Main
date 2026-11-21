@@ -3,20 +3,27 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "GameplayTagContainer.h"
 #include "UI/UserWidget/Template/AuraSizeBoxWidget.h"
 #include "TextValueButtonRowWidget.generated.h"
 
 class UTextBlock;
 class UValueWidget;
 class UButtonWidget;
+class UAttributeMenuWidgetController;
+struct FAuraAttributeInfo;
 
 UCLASS()
 class AURARPG_API UTextValueButtonRowWidget : public UAuraSizeBoxWidget
 {
 	GENERATED_BODY()
 	
+public:
+	virtual void WidgetControllerSet_Implementation() override;
+	
 protected:
 	virtual void NativePreConstruct() override;
+	virtual void NativeOnInitialized() override;
 	
 	UPROPERTY(meta=(BindWidget))
 	TObjectPtr<UTextBlock> TextBlock_Attribute;
@@ -26,4 +33,14 @@ protected:
 	
 	UPROPERTY(meta=(BindWidget))
 	TObjectPtr<UButtonWidget> ButtonWidget;
+	
+	UPROPERTY(BlueprintReadOnly, Category = "Aura|TextValueButtonRow")
+	TObjectPtr<UAttributeMenuWidgetController> AttributeMenuWidgetController;
+	
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Aura|TextValueButtonRow", meta = (Categories = "Attribute"))
+	FGameplayTag AttributeTag;
+	
+private:
+	void AttributeInfoChangeReceived(const FAuraAttributeInfo& AttributeInfo) const;
+	void SetAttributeNameAndValue(const FText& AttributeName, float AttributeValue) const;
 };

@@ -13,3 +13,9 @@ void UValueWidget::NativePreConstruct()
 	Image_Background->SetBrush(BackgroundBrush);
 	Image_Frame->SetBrush(FrameBrush);
 }
+
+void UValueWidget::SetAttributeValue(float AttributeValue) const
+{
+	if (!TextBlock_Value) return;
+	TextBlock_Value->SetText(FText::AsNumber(AttributeValue));
+}

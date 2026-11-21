@@ -45,5 +45,6 @@ void UAttributeMenuWidget::OnCloseButtonClicked()
 
 void UAttributeMenuWidget::WidgetControllerSet_Implementation()
 {
-	
+	if (!AttributeMenuWidgetController) return;
+	AttributeMenuWidgetController->BroadcastInitialValues();
 }

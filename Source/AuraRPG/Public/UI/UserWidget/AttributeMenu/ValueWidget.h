@@ -15,6 +15,8 @@ class AURARPG_API UValueWidget : public UAuraSizeBoxWidget
 	GENERATED_BODY()
 	
 public:
+	void SetAttributeValue(float AttributeValue) const;
+	
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Aura|Value")
 	FSlateBrush BackgroundBrush;
 	
