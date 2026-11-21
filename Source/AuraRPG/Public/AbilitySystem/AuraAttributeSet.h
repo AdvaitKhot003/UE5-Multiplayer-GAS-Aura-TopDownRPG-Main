@@ -7,6 +7,9 @@
 #include "AttributeSet.h"
 #include "AuraAttributeSet.generated.h"
 
+template <typename T>
+using TStaticFuncPtr = TBaseStaticDelegateInstance<T, FDefaultDelegateUserPolicy>::FFuncPtr;
+
 UCLASS()
 class AURARPG_API UAuraAttributeSet : public UAttributeSet
 {
@@ -18,6 +21,8 @@ public:
 	virtual void GetLifetimeReplicatedProps(TArray<class FLifetimeProperty>& OutLifetimeProps) const override;
 	virtual void PreAttributeChange(const FGameplayAttribute& Attribute, float& NewValue) override;
 	virtual void PostGameplayEffectExecute(const struct FGameplayEffectModCallbackData& Data) override;
+	
+	TMap<FGameplayTag, TStaticFuncPtr<FGameplayAttribute()>> TagsToAttributes;
 	
 #pragma region Primary Attributes
 	/** Strength Attribute - Increases physical damage */

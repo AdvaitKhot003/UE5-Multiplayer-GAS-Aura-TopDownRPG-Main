@@ -8,6 +8,7 @@
 
 class UButtonWidget;
 class UImage;
+class UAttributeMenuWidgetController;
 
 DECLARE_MULTICAST_DELEGATE(FOnAttributeMenuClosed);
 
@@ -17,6 +18,8 @@ class AURARPG_API UAttributeMenuWidget : public UAuraSizeBoxWidget
 	GENERATED_BODY()
 	
 public:
+	virtual void WidgetControllerSet_Implementation() override;
+	
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Aura|AttributeMenu")
 	FSlateBrush BackgroundBrush;
 	
@@ -38,6 +41,9 @@ protected:
 	
 	UPROPERTY(meta=(BindWidget))
 	TObjectPtr<UButtonWidget> CloseButtonWidget;
+	
+	UPROPERTY(BlueprintReadOnly, Category = "Aura|AttributeMenu")
+	TObjectPtr<UAttributeMenuWidgetController> AttributeMenuWidgetController;
 	
 private:
 	UFUNCTION()

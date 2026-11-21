@@ -3,6 +3,8 @@
 #include "UI/UserWidget/AttributeMenu/AttributeMenuWidget.h"
 #include "Components/Image.h"
 #include "UI/UserWidget/Button/ButtonWidget.h"
+#include "AbilitySystem/AuraAbilitySystemLibrary.h"
+#include "UI/WidgetController/AttributeMenuWidgetController.h"
 
 void UAttributeMenuWidget::NativePreConstruct()
 {
@@ -22,6 +24,12 @@ void UAttributeMenuWidget::NativeOnInitialized()
 	{
 		CloseButtonWidget->OnButtonClicked.AddUObject(this, &UAttributeMenuWidget::OnCloseButtonClicked);
 	}
+	
+	AttributeMenuWidgetController = UAuraAbilitySystemLibrary::GetAttributeMenuWidgetController(this);
+	if (AttributeMenuWidgetController)
+	{
+		SetWidgetController(AttributeMenuWidgetController);
+	}
 }
 
 void UAttributeMenuWidget::NativeDestruct()
@@ -33,4 +41,9 @@ void UAttributeMenuWidget::NativeDestruct()
 void UAttributeMenuWidget::OnCloseButtonClicked()
 {
 	RemoveFromParent();
+}
+
+void UAttributeMenuWidget::WidgetControllerSet_Implementation()
+{
+	
 }

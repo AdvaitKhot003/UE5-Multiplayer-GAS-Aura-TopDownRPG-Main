@@ -8,6 +8,7 @@
 
 class UOverlayWidget;
 class UOverlayWidgetController;
+class UAttributeMenuWidgetController;
 class APlayerController;
 class APlayerState;
 class UAbilitySystemComponent;
@@ -21,6 +22,8 @@ class AURARPG_API AAuraHUD : public AHUD
 	
 public:
 	UOverlayWidgetController* GetOverlayWidgetController(const FWidgetControllerParams& Params);
+	UAttributeMenuWidgetController* GetAttributeMenuWidgetController(const FWidgetControllerParams& Params);
+	
 	void InitOverlay(APlayerController* PC, APlayerState* PS, UAbilitySystemComponent* ASC, UAttributeSet* AS);
 	
 private:
@@ -35,4 +38,10 @@ private:
 	
 	UPROPERTY(Transient)
 	TObjectPtr<UOverlayWidgetController> OverlayWidgetController;
+	
+	UPROPERTY(EditDefaultsOnly, Category = "Aura|HUD")
+	TSubclassOf<UAttributeMenuWidgetController> AttributeMenuWidgetControllerClass;
+	
+	UPROPERTY(Transient)
+	TObjectPtr<UAttributeMenuWidgetController> AttributeMenuWidgetController;
 };
