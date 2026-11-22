@@ -27,8 +27,8 @@ struct FUIMessageWidgetRow : public FTableRowBase
 	TSubclassOf<UMessageWidget> MessageWidget = nullptr;
 };
 
-DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnAttributeChangeSignature, float, NewValue);
-DECLARE_MULTICAST_DELEGATE_OneParam(FUIMessageWidgetRowSignature, FUIMessageWidgetRow);
+DECLARE_MULTICAST_DELEGATE_TwoParams(FOnAttributeValueChangeDelegate, const FGameplayTag&, float);
+DECLARE_MULTICAST_DELEGATE_OneParam(FUIMessageWidgetRowSignature, const FUIMessageWidgetRow&);
 
 UCLASS()
 class AURARPG_API UOverlayWidgetController : public UAuraWidgetController
@@ -39,26 +39,10 @@ public:
 	virtual void BroadcastInitialValues() override;
 	virtual void BindCallbackToDependencies() override;
 	
-	UPROPERTY(BlueprintAssignable, Category = "Aura|Attributes")
-	FOnAttributeChangeSignature OnHealthChangeDelegate;
-	
-	UPROPERTY(BlueprintAssignable, Category = "Aura|Attributes")
-	FOnAttributeChangeSignature OnMaxHealthChangeDelegate;
-	
-	UPROPERTY(BlueprintAssignable, Category = "Aura|Attributes")
-	FOnAttributeChangeSignature OnManaChangeDelegate;
-	
-	UPROPERTY(BlueprintAssignable, Category = "Aura|Attributes")
-	FOnAttributeChangeSignature OnMaxManaChangeDelegate;
-	
+	FOnAttributeValueChangeDelegate OnAttributeValueChangeDelegate;
 	FUIMessageWidgetRowSignature UIMessageWidgetRowDelegate;
 	
 private:
-	void HealthChanged(const FOnAttributeChangeData& Data) const;
-	void MaxHealthChanged(const FOnAttributeChangeData& Data) const;
-	void ManaChanged(const FOnAttributeChangeData& Data) const;
-	void MaxManaChanged(const FOnAttributeChangeData& Data) const;
-	
 	void GameplayEffectAssetTagsReceived(const FGameplayTagContainer& AssetTags) const;
 	
 	UPROPERTY(EditDefaultsOnly, Category = "Aura|DataTable")

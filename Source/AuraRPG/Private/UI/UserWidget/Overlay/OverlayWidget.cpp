@@ -62,7 +62,7 @@ void UOverlayWidget::WidgetControllerSet_Implementation()
 	OverlayWidgetController->UIMessageWidgetRowDelegate.AddUObject(this, &UOverlayWidget::UIMessageWidgetRowReceived);
 }
 
-void UOverlayWidget::UIMessageWidgetRowReceived(FUIMessageWidgetRow Row) const
+void UOverlayWidget::UIMessageWidgetRowReceived( const FUIMessageWidgetRow& Row) const
 {
 	if (!Row.MessageWidget) return;
 	

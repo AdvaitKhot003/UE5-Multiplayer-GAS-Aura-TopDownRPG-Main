@@ -3,6 +3,7 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "GameplayTagContainer.h"
 #include "UI/UserWidget/Template/AuraSizeBoxWidget.h"
 #include "GlobeProgressBarWidget.generated.h"
 
@@ -36,16 +37,9 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Aura|GhostProgressBar")
 	float GhostInterpSpeed = 1.f;
 	
-	UFUNCTION(BlueprintCallable)
-	void SetPercentValue(float NewValue);
-	
-	UFUNCTION(BlueprintCallable)
-	void SetPercentMaxValue(float NewValue);
-	
 protected:
 	virtual void NativePreConstruct() override;
 	virtual void NativeTick(const FGeometry& MyGeometry, float InDeltaTime) override;
-	virtual void NativeDestruct() override;
 	
 	UPROPERTY(meta=(BindWidget))
 	TObjectPtr<UImage> Image_GlobeRing;
@@ -62,6 +56,12 @@ protected:
 	UPROPERTY(BlueprintReadOnly, Category = "Aura|UserWidget")
 	TObjectPtr<UOverlayWidgetController> OverlayWidgetController;
 	
+	UPROPERTY(EditAnywhere, Category = "Aura|GlobeProgressBar", meta = (Categories = "Attribute"))
+	FGameplayTag AttributeTag;
+	
+	UPROPERTY(EditAnywhere, Category = "Aura|GlobeProgressBar", meta = (Categories = "Attribute"))
+	FGameplayTag MaxAttributeTag;
+	
 private:
 	float PercentValue = 0.f;
 	float PercentMaxValue = 0.f;
@@ -76,7 +76,11 @@ private:
 	void SetProgressBarGlobePercent(float Percent);
 	void OnProgressBarGlobePercentSet(float Percent);
 	
+	void SetPercentValue(float NewValue);
+	void SetPercentMaxValue(float NewValue);
 	void UpdatePercent();
 	
 	void SetProgressBarGhostPercent(float Percent) const;
+	
+	void AttributeValueChangeReceived(const FGameplayTag& Tag, float Value);
 };

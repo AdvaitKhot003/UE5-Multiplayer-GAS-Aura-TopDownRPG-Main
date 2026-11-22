@@ -40,7 +40,7 @@ protected:
 	TObjectPtr<UOverlayWidgetController> OverlayWidgetController;
 	
 private:
-	void UIMessageWidgetRowReceived(FUIMessageWidgetRow Row) const;
+	void UIMessageWidgetRowReceived(const FUIMessageWidgetRow& Row) const;
 	
 	UFUNCTION()
 	void OnAttributeMenuButtonClicked();

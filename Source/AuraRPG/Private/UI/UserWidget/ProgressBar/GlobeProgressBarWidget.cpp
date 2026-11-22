@@ -40,19 +40,20 @@ void UGlobeProgressBarWidget::NativeTick(const FGeometry& MyGeometry, float InDe
 	SetProgressBarGhostPercent(GhostPercentNext);
 }
 
-void UGlobeProgressBarWidget::NativeDestruct()
-{
-	if (const UWorld* World = GetWorld())
-	{
-		World->GetTimerManager().ClearTimer(ProgressBarTimerHandle);
-	}
-	Super::NativeDestruct();
-}
-
 void UGlobeProgressBarWidget::WidgetControllerSet_Implementation()
 {
 	if (!WidgetController) return;
+	
 	OverlayWidgetController = Cast<UOverlayWidgetController>(WidgetController);
+	if (!OverlayWidgetController) return;
+	
+	OverlayWidgetController->OnAttributeValueChangeDelegate.AddUObject(this, &ThisClass::AttributeValueChangeReceived);
+}
+
+void UGlobeProgressBarWidget::AttributeValueChangeReceived(const FGameplayTag& Tag, float Value)
+{
+	if (Tag.MatchesTagExact(AttributeTag)) SetPercentValue(Value);
+	else if (Tag.MatchesTagExact(MaxAttributeTag)) SetPercentMaxValue(Value);
 }
 
 void UGlobeProgressBarWidget::SetProgressBarGlobePercent(float Percent)
@@ -70,6 +71,16 @@ void UGlobeProgressBarWidget::SetProgressBarGlobePercent(float Percent)
 	
 	const UWorld* World = GetWorld();
 	if (!World) return;
+	
+	if (ProgressBar_Ghost && Percent >= ProgressBar_Ghost->GetPercent())
+	{
+		World->GetTimerManager().ClearTimer(ProgressBarTimerHandle);
+		GhostPercentTarget = Percent;
+		SetProgressBarGhostPercent(Percent);
+		return;
+	}
+	
+	GhostPercentTarget = ProgressBar_Ghost ? ProgressBar_Ghost->GetPercent() : Percent;
 	
 	FTimerDelegate TimerDelegate;
 	TimerDelegate.BindUObject(this, &UGlobeProgressBarWidget::OnProgressBarGlobePercentSet, Percent);
