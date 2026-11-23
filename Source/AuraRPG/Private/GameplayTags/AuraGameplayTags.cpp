@@ -7,6 +7,14 @@ namespace AuraGameplayTags
 	/** Input Tags */
 	UE_DEFINE_GAMEPLAY_TAG_COMMENT(Input_Move, "Input.Move", "None");
 	
+	/** Ability Input Tags */
+	UE_DEFINE_GAMEPLAY_TAG_COMMENT(Input_RMB, "Input.RMB", "None");
+	UE_DEFINE_GAMEPLAY_TAG_COMMENT(Input_LMB, "Input.LMB", "None");
+	UE_DEFINE_GAMEPLAY_TAG_COMMENT(Input_1Key, "Input.1Key", "None");
+	UE_DEFINE_GAMEPLAY_TAG_COMMENT(Input_2Key, "Input.2Key", "None");
+	UE_DEFINE_GAMEPLAY_TAG_COMMENT(Input_3Key, "Input.3Key", "None");
+	UE_DEFINE_GAMEPLAY_TAG_COMMENT(Input_4Key, "Input.4Key", "None");
+	
 	/** Primary Attribute Tags */
 	UE_DEFINE_GAMEPLAY_TAG_COMMENT(Attribute_Primary_Strength, "Attribute.Primary.Strength", "None");
 	UE_DEFINE_GAMEPLAY_TAG_COMMENT(Attribute_Primary_Intelligence, "Attribute.Primary.Intelligence", "None");

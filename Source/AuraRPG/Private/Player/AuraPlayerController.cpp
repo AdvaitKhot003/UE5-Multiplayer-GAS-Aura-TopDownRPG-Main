@@ -5,6 +5,7 @@
 #include "EnhancedInput/AuraEnhancedInputComponent.h"
 #include "GameplayTags/AuraGameplayTags.h"
 #include "Interface/EnemyInterface.h"
+#include "AbilitySystem/AuraAbilitySystemComponent.h"
 
 AAuraPlayerController::AAuraPlayerController()
 {
@@ -77,6 +78,9 @@ void AAuraPlayerController::SetupInputComponent()
 	
 	AuraEnhancedInputComponent->BindNativeInputAction(AuraInputDataAsset,
 		AuraGameplayTags::Input_Move, ETriggerEvent::Triggered, this, &AAuraPlayerController::Move);
+	
+	AuraEnhancedInputComponent->BindAbilityInputAction(AuraInputDataAsset, this,
+		&ThisClass::AbilityInputPressed, &ThisClass::AbilityInputHeld, &ThisClass::AbilityInputReleased);
 }
 
 void AAuraPlayerController::Move(const FInputActionValue& InputActionValue)
@@ -99,4 +103,41 @@ void AAuraPlayerController::Move(const FInputActionValue& InputActionValue)
 		const FVector ForwardDirection = YawRotation.RotateVector(FVector::ForwardVector);
 		ControlledPawn->AddMovementInput(ForwardDirection, InputAxisValue.Y);
 	}
+}
+
+void AAuraPlayerController::AbilityInputPressed(FGameplayTag InInputTag)
+{
+	
+}
+
+void AAuraPlayerController::AbilityInputHeld(FGameplayTag InInputTag)
+{
+	UAuraAbilitySystemComponent* AuraASC = GetAuraAbilitySystemComponent();
+	if (!AuraASC) return;
+	
+	if (InInputTag.MatchesTagExact(AuraGameplayTags::Input_LMB))
+	{
+		AuraASC->OnAbilityInputHeld(InInputTag);
+	}
+}
+
+void AAuraPlayerController::AbilityInputReleased(FGameplayTag InInputTag)
+{
+	UAuraAbilitySystemComponent* AuraASC = GetAuraAbilitySystemComponent();
+	if (!AuraASC) return;
+	
+	if (InInputTag.MatchesTagExact(AuraGameplayTags::Input_LMB))
+	{
+		AuraASC->OnAbilityInputReleased(InInputTag);
+	}
+}
+
+UAuraAbilitySystemComponent* AAuraPlayerController::GetAuraAbilitySystemComponent()
+{
+	if (!AuraAbilitySystemComponent)
+	{
+		AuraAbilitySystemComponent = Cast<UAuraAbilitySystemComponent>(
+			UAbilitySystemBlueprintLibrary::GetAbilitySystemComponent(GetPawn<APawn>()));
+	}
+	return AuraAbilitySystemComponent;
 }

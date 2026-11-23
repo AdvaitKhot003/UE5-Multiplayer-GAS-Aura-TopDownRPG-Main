@@ -19,6 +19,10 @@ public:
 	void InitAbilityActorInfoSet();
 	void GiveStartupAbilities(const TArray<TSubclassOf<UAuraGameplayAbility>>& StartupAbilities, float Level = 1.f);
 	
+	void OnAbilityInputPressed(const FGameplayTag& InInputTag);
+	void OnAbilityInputHeld(const FGameplayTag& InInputTag);
+	void OnAbilityInputReleased(const FGameplayTag& InInputTag);
+	
 	FGameplayEffectAssetTagsDelegate GameplayEffectAssetTagsDelegate;
 	
 private:
