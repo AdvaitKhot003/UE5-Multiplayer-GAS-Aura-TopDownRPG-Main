@@ -72,7 +72,12 @@ void AAuraPlayerCharacter::InitAbilityCharacterInfo()
 	
 	AbilitySystemComponent->InitAbilityActorInfo(AuraPlayerState, this);
 	InitDefaultAttributes(AbilitySystemComponent);
-	Cast<UAuraAbilitySystemComponent>(AbilitySystemComponent)->InitAbilityActorInfoSet();
+	
+	UAuraAbilitySystemComponent* AuraAbilitySystemComponent = Cast<UAuraAbilitySystemComponent>(AbilitySystemComponent);
+	if (!AuraAbilitySystemComponent) return;
+	
+	AuraAbilitySystemComponent->GiveStartupAbilities(StartupGameplayAbilities);
+	AuraAbilitySystemComponent->InitAbilityActorInfoSet();
 	
 	APlayerController* PlayerController = Cast<APlayerController>(GetController());
 	if (!PlayerController) return;

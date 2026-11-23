@@ -12,6 +12,7 @@ class USkeletalMeshComponent;
 class UAbilitySystemComponent;
 class UAttributeSet;
 class UGameplayEffect;
+class UAuraGameplayAbility;
 
 UCLASS(Abstract)
 class AURARPG_API AAuraCharacterBase : public ACharacter, public IAbilitySystemInterface, public ICombatInterface
@@ -51,4 +52,7 @@ protected:
 	
 	void ApplyEffectSpecToSelf(UAbilitySystemComponent* SourceASC,
 		const TSubclassOf<UGameplayEffect>& GameplayEffectClass, float Level = 1.f);
+	
+	UPROPERTY(EditDefaultsOnly, Category = "Aura|Abilities")
+	TArray<TSubclassOf<UAuraGameplayAbility>> StartupGameplayAbilities;
 };
