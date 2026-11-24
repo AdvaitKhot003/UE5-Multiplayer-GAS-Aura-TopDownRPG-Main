@@ -8,8 +8,9 @@
 #include "AuraPlayerController.generated.h"
 
 class UAuraInputDataAsset;
-class IEnemyInterface;
+class USplineComponent;
 class UAuraAbilitySystemComponent;
+class IEnemyInterface;
 struct FInputActionValue;
 
 UCLASS()
@@ -51,4 +52,28 @@ private:
 	TScriptInterface<IEnemyInterface> ThisHitResultActor;
 	
 	void TraceUnderCursor();
+	void ClickToRun();
+	void AutoRun();
+	bool BuildAutoRunPath();
+	
+	UPROPERTY(Transient)
+	FVector CachedDestination = FVector::ZeroVector;
+	
+	UPROPERTY(Transient)
+	bool bAutoRunning = false;
+	
+	UPROPERTY(Transient)
+	bool bTargeting = false;
+	
+	UPROPERTY(Transient)
+	float PressTime = 0.f;
+	
+	UPROPERTY(EditDefaultsOnly, Category = "Aura|Movement")
+	float ShortPressThreshold = 0.3f;
+	
+	UPROPERTY(EditDefaultsOnly, Category = "Aura|Movement")
+	float AutoRunAcceptanceRadius = 50.f;
+	
+	UPROPERTY(VisibleAnywhere, Category = "Aura|Movement")
+	TObjectPtr<USplineComponent> Spline;
 };

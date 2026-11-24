@@ -19,7 +19,8 @@ public class AuraRPG : ModuleRules
 			"GameplayTags",
 			"GameplayAbilities",
 			"GameplayTasks",
-			"SlateCore"
+			"SlateCore",
+			"NavigationSystem"
 		]);
 		
 		PrivateDependencyModuleNames.AddRange([]);
