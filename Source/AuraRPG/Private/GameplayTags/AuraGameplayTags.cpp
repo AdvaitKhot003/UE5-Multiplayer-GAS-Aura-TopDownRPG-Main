@@ -37,6 +37,9 @@ namespace AuraGameplayTags
 	UE_DEFINE_GAMEPLAY_TAG_COMMENT(Attribute_Vital_Health, "Attribute.Vital.Health", "None");
 	UE_DEFINE_GAMEPLAY_TAG_COMMENT(Attribute_Vital_Mana, "Attribute.Vital.Mana", "None");
 	
+	/** Event Tags */
+	UE_DEFINE_GAMEPLAY_TAG_COMMENT(Event_Ability_FireBolt, "Event.Ability.FireBolt", "None");
+	
 	/** Message Tags */
 	UE_DEFINE_GAMEPLAY_TAG_COMMENT(Message_Potion_Health, "Message.Potion.Health", "None");
 	UE_DEFINE_GAMEPLAY_TAG_COMMENT(Message_Potion_Mana, "Message.Potion.Mana", "None");

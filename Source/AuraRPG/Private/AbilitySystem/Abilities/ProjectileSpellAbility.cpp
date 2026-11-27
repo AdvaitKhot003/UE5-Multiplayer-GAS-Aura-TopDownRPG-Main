@@ -5,26 +5,9 @@
 #include "Interface/CombatInterface.h"
 #include "Abilities/Tasks/AbilityTask_WaitDelay.h"
 
-void UProjectileSpellAbility::ActivateAbility(const FGameplayAbilitySpecHandle Handle, const FGameplayAbilityActorInfo* ActorInfo,
-	const FGameplayAbilityActivationInfo ActivationInfo, const FGameplayEventData* TriggerEventData)
-{
-	Super::ActivateAbility(Handle, ActorInfo, ActivationInfo, TriggerEventData);
-	
-	UAbilityTask_WaitDelay* DelayTask = UAbilityTask_WaitDelay::WaitDelay(this, EndAbilityDelay);
-	DelayTask->OnFinish.AddDynamic(this, &UProjectileSpellAbility::OnDelayFinished);
-	DelayTask->ReadyForActivation();
-	
-	SpawnProjectile();
-}
-
-void UProjectileSpellAbility::OnDelayFinished()
-{
-	EndAbility(CurrentSpecHandle, CurrentActorInfo, CurrentActivationInfo, true, false);
-}
-
 void UProjectileSpellAbility::SpawnProjectile()
 {
-	check(ProjectileClassToSpawn);
+	check(ProjectileActorClass);
 	
 	const bool bIsServer = HasAuthority(&CurrentActivationInfo);
 	if (!bIsServer && !IsLocallyControlled()) return; // only the server and the local client spawn
@@ -36,7 +19,7 @@ void UProjectileSpellAbility::SpawnProjectile()
 	FTransform SpawnTransform;
 	SpawnTransform.SetLocation(SocketLocation);
 	
-	AProjectileActorBase* Projectile = GetWorld()->SpawnActorDeferred<AProjectileActorBase>(ProjectileClassToSpawn,
+	AProjectileActorBase* Projectile = GetWorld()->SpawnActorDeferred<AProjectileActorBase>(ProjectileActorClass,
 		SpawnTransform, GetOwningActorFromActorInfo(), Cast<APawn>(GetAvatarActorFromActorInfo()),
 		ESpawnActorCollisionHandlingMethod::AdjustIfPossibleButAlwaysSpawn);
 	

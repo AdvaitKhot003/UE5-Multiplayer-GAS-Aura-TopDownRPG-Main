@@ -14,18 +14,8 @@ class AURARPG_API UProjectileSpellAbility : public UAuraGameplayAbility
 	GENERATED_BODY()
 	
 protected:
-	virtual void ActivateAbility(const FGameplayAbilitySpecHandle Handle, const FGameplayAbilityActorInfo* ActorInfo,
-		const FGameplayAbilityActivationInfo ActivationInfo, const FGameplayEventData* TriggerEventData) override;
+	UPROPERTY(EditDefaultsOnly, Category = "Aura|Projectile")
+	TSubclassOf<AProjectileActorBase> ProjectileActorClass;
 	
 	void SpawnProjectile();
-	
-private:
-	UPROPERTY(EditDefaultsOnly, Category = "Aura|Projectile")
-	TSubclassOf<AProjectileActorBase> ProjectileClassToSpawn;
-	
-	UPROPERTY(EditDefaultsOnly, Category = "Aura|Projectile")
-	float EndAbilityDelay = 1.f;
-	
-	UFUNCTION()
-	void OnDelayFinished();
 };
