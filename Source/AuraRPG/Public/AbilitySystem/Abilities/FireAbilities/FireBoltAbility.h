@@ -27,4 +27,7 @@ private:
 	
 	UFUNCTION()
 	void OnFireBoltEventReceived(FGameplayEventData Payload);
+	
+	UFUNCTION()
+	void OnTargetDataReceived(const FGameplayAbilityTargetDataHandle& TargetData);
 };
