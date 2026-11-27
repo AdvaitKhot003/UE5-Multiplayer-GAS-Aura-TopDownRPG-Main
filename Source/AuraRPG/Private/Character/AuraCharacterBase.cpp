@@ -9,10 +9,23 @@ AAuraCharacterBase::AAuraCharacterBase()
 	PrimaryActorTick.bCanEverTick = false;
 	
 	GetCapsuleComponent()->InitCapsuleSize(34.f, 84.f);
+	GetCapsuleComponent()->SetGenerateOverlapEvents(false);
+	
+	GetMesh()->VisibilityBasedAnimTickOption = EVisibilityBasedAnimTickOption::AlwaysTickPoseAndRefreshBones;
+	GetMesh()->SetGenerateOverlapEvents(true);
+	GetMesh()->SetCollisionEnabled(ECollisionEnabled::QueryOnly);
+	GetMesh()->SetCollisionObjectType(ECC_Pawn);
+	GetMesh()->SetCollisionResponseToChannel(ECC_WorldDynamic, ECR_Overlap);
 	
 	WeaponMesh = CreateDefaultSubobject<USkeletalMeshComponent>("SkeletalMeshComp");
 	WeaponMesh->SetupAttachment(GetMesh(), FName("WeaponHandSocket"));
 	WeaponMesh->SetCollisionEnabled(ECollisionEnabled::NoCollision);
+}
+
+FVector AAuraCharacterBase::GetCombatWeaponSocketLocation() const
+{
+	if (!WeaponMesh) return FVector::ZeroVector;
+	return WeaponMesh->GetSocketLocation(WeaponTipSocketName);
 }
 
 void AAuraCharacterBase::InitAbilityCharacterInfo()

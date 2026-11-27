@@ -27,6 +27,10 @@ public:
 	virtual UAttributeSet* GetAttributeSet() const { return nullptr; }
 #pragma endregion
 	
+#pragma region Combat Interface
+	virtual FVector GetCombatWeaponSocketLocation() const override;
+#pragma endregion
+	
 protected:
 	UPROPERTY(VisibleAnywhere, Category = "Aura|Combat")
 	TObjectPtr<USkeletalMeshComponent> WeaponMesh;
@@ -55,4 +59,8 @@ protected:
 	
 	UPROPERTY(EditDefaultsOnly, Category = "Aura|Abilities")
 	TArray<TSubclassOf<UAuraGameplayAbility>> StartupGameplayAbilities;
+	
+private:
+	UPROPERTY(EditDefaultsOnly, Category = "Aura|Combat")
+	FName WeaponTipSocketName;
 };
